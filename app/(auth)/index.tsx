@@ -1,17 +1,10 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Home</Text>
-    </View>
+    <ThemedView className="flex-1 justify-center items-center">
+      <ThemedText>Hey! </ThemedText>
+    </ThemedView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

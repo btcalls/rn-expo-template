@@ -46,6 +46,7 @@
     "@react-navigation/native": "^7.0.14",
     "@rn-primitives/portal": "^1.1.0",
     "class-variance-authority": "^0.7.1",
+    "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "expo": "~52.0.27",
     "expo-blur": "~14.0.2",

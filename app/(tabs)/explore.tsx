@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Platform } from 'react-native';
+import { Image, Platform, StyleSheet } from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
@@ -20,7 +20,7 @@ export default function TabTwoScreen() {
         />
       }
     >
-      <ThemedView style={styles.titleContainer}>
+      <ThemedView className="flex-row gap-2">
         <ThemedText type="title">Explore</ThemedText>
       </ThemedView>
       <ThemedText>This app includes example code to help you get started.</ThemedText>
@@ -102,9 +102,5 @@ const styles = StyleSheet.create({
     bottom: -90,
     left: -35,
     position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
   },
 });

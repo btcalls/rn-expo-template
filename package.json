@@ -11,7 +11,8 @@
     "test": "jest --watchAll",
     "lint": "expo lint",
     "precommit": "lint-staged",
-    "commit": "cz"
+    "commit": "cz",
+    "react-devtools": "react-devtools"
   },
   "lint-staged": {
     "*.js": [

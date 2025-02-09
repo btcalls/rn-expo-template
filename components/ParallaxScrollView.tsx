@@ -8,26 +8,22 @@ import Animated, {
 
 import { ThemedView } from '@/components/ThemedView';
 import { useBottomTabOverflow } from '@/components/ui/TabBarBackground';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { cn } from '@/lib/utils';
 
 const HEADER_HEIGHT = 250;
 
 type Props = PropsWithChildren<{
   headerImage: ReactElement;
-  headerBackgroundColor: { dark: string; light: string };
+  headerBGClassName?: string;
 }>;
 
-export default function ParallaxScrollView({
-  children,
-  headerImage,
-  headerBackgroundColor,
-}: Props) {
-  const colorScheme = useColorScheme().colorScheme ?? 'light';
+export default function ParallaxScrollView({ children, headerImage, headerBGClassName }: Props) {
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(scrollRef);
   const bottom = useBottomTabOverflow();
   const headerAnimatedStyle = useAnimatedStyle(() => {
     return {
+      height: HEADER_HEIGHT,
       transform: [
         {
           translateY: interpolate(
@@ -42,6 +38,7 @@ export default function ParallaxScrollView({
       ],
     };
   });
+  const headerBGStyles = cn('overflow-hidden', headerBGClassName);
 
   return (
     <ThemedView className="flex-1">
@@ -51,13 +48,7 @@ export default function ParallaxScrollView({
         scrollIndicatorInsets={{ bottom }}
         contentContainerStyle={{ paddingBottom: bottom }}
       >
-        <Animated.View
-          className="overflow-hidden"
-          style={[
-            { backgroundColor: headerBackgroundColor[colorScheme], height: HEADER_HEIGHT },
-            headerAnimatedStyle,
-          ]}
-        >
+        <Animated.View className={headerBGStyles} style={headerAnimatedStyle}>
           {headerImage}
         </Animated.View>
         <ThemedView className="flex-1 p-8 gap-4 overflow-hidden">{children}</ThemedView>

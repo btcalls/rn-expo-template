@@ -1,20 +1,24 @@
 import { Stack } from 'expo-router';
 
-export default function HomeLayout() {
+import { BrandColors } from '@/constants/colors';
+import { useThemeColor } from '@/hooks/useThemeColor';
+
+export default function AuthLayout() {
+  const headerTintColor = useThemeColor('secondary');
+
   return (
     <Stack
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#f4511e',
+          backgroundColor: BrandColors.brand,
         },
-        headerTintColor: '#fff',
+        headerTintColor,
         headerTitleStyle: {
           fontWeight: 'bold',
         },
       }}
     >
       <Stack.Screen name="index" />
-      <Stack.Screen name="details" />
     </Stack>
   );
 }

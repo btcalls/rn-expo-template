@@ -11,7 +11,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 export function useThemeColor(
   colorName: keyof typeof AppColors.light & keyof typeof AppColors.dark
 ) {
-  const theme: keyof typeof AppColors = useColorScheme().colorScheme ?? 'light';
+  const { colorScheme: theme } = useColorScheme();
   const color = AppColors[theme][colorName];
   const hslValues = color
     .replace(/hsl\(|\)|\%/g, '')
@@ -19,5 +19,5 @@ export function useThemeColor(
     .map((x) => parseFloat(x));
   const rgb = convert.hsl.rgb(hslValues[0], hslValues[1], hslValues[2]);
 
-  return convert.rgb.hex(rgb[0], rgb[1], rgb[2]);
+  return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }

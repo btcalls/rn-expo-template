@@ -1,6 +1,7 @@
 import { ColorsToConfig, ColorsToPlugin } from './constants/colors';
 
 const { hairlineWidth } = require('nativewind/theme');
+const { fontFamily } = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -10,6 +11,9 @@ module.exports = {
   theme: {
     extend: {
       colors: ColorsToConfig,
+      fontFamily: {
+        'space-mono': ['SpaceMono', ...fontFamily.mono],
+      },
       borderWidth: {
         hairline: hairlineWidth(),
       },

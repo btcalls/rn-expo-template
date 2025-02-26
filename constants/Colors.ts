@@ -1,3 +1,7 @@
+import convert from 'color-convert';
+
+import { useColorScheme } from '@/hooks/useColorScheme';
+
 type Colors = {
   // Tailwind colors
   background: string;
@@ -27,20 +31,33 @@ type Colors = {
   tabIconSelected: string;
 };
 
-const mapColors = (colors: Colors) =>
+function mapColors(colors: Colors) {
   Object.assign(
     {},
     ...Object.entries(colors).map(([key, value]) => ({
       ['--' + key]: value.replace(/hsl\(|\)/g, ''),
     }))
   );
+}
 
-export const BrandColors = {
+function toRGB(color: string) {
+  const hslValues = color
+    .replace(/hsl\(|\)|\%/g, '')
+    .split(' ')
+    .map((x) => parseFloat(x));
+
+  const rgb = convert.hsl.rgb(hslValues[0], hslValues[1], hslValues[2]);
+
+  return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+}
+
+const BrandColors = {
   brand: 'hsl(13, 87.8%, 48%)',
 };
 
-export const AppColors: { light: Colors; dark: Colors } = {
+const AppColors: { light: Colors; dark: Colors } = {
   light: {
+    background: 'hsl(0 0% 100%)',
     foreground: 'hsl(240 10% 3.9%)',
     card: 'hsl(0 0% 100%)',
     cardForeground: 'hsl(240 10% 3.9%)',
@@ -60,13 +77,13 @@ export const AppColors: { light: Colors; dark: Colors } = {
     input: 'hsl(240 5.9% 90%)',
     ring: 'hsl(240 5.9% 10%;)',
     label: 'hsl(201.82 24.44% 8.82%)',
-    background: 'hsl(0 0% 100%)',
     tint: 'hsl(195, 89%, 34%)',
     icon: 'hsl(205.71 6.31% 43.53%)',
     tabIconDefault: 'hsl(205.71 6.31% 43.53%)',
     tabIconSelected: 'hsl(207.27 5.82% 62.94%)',
   },
   dark: {
+    background: 'hsl(200 6.67% 8.82%)',
     foreground: 'hsl(0 0% 98%)',
     card: 'hsl(240 10% 3.9%)',
     cardForeground: 'hsl(0 0% 98%)',
@@ -86,13 +103,26 @@ export const AppColors: { light: Colors; dark: Colors } = {
     input: 'hsl(240 3.7% 15.9%)',
     ring: 'hsl(240 4.9% 83.9%)',
     label: 'hsl(210 5.56% 92.94%)',
-    background: 'hsl(200 6.67% 8.82%)',
     tint: 'hsl(0 0% 100%)',
     icon: 'hsl(207.27 5.82% 62.94%)',
     tabIconDefault: 'hsl(207.27 5.82% 62.94%)',
     tabIconSelected: 'hsl(0 0% 100%)',
   },
 };
+
+export function useAppColor(color: keyof Colors | keyof typeof BrandColors) {
+  const { colorScheme: theme } = useColorScheme();
+
+  if (color in BrandColors) {
+    return toRGB(BrandColors[color as keyof typeof BrandColors]);
+  }
+
+  if (color in AppColors[theme]) {
+    return toRGB(AppColors[theme][color as keyof Colors]);
+  }
+
+  return AppColors.light.primary;
+}
 
 export const ColorsToConfig = Object.assign(
   {},

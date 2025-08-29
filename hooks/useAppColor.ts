@@ -10,7 +10,6 @@ function toRGB(color: string) {
     .replace(/hsl\(|\)|\%/g, '')
     .split(' ')
     .map((x) => parseFloat(x));
-
   const rgb = convert.hsl.rgb(hslValues[0], hslValues[1], hslValues[2]);
 
   return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
@@ -20,12 +19,13 @@ export default function useAppColor(color: keyof Colors | keyof typeof BrandColo
   const { colorScheme: theme } = useColorScheme();
 
   if (color in BrandColors) {
-    return toRGB(BrandColors[color as keyof typeof BrandColors]);
+    return toRGB(BrandColors[color as keyof typeof BrandColors][theme]);
   }
 
-  if (color in AppColors[theme]) {
-    return toRGB(AppColors[theme][color as keyof Colors]);
+  if (color in AppColors) {
+    return toRGB(AppColors[color as keyof Colors][theme]);
   }
 
-  return AppColors[theme].primary;
+  // Fallback to primary color
+  return AppColors.primary[theme];
 }

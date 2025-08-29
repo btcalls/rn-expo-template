@@ -16,7 +16,7 @@ export default function HomeScreen() {
       }
     >
       <ThemedView className="flex-row items-center gap-2">
-        <ThemedText type="title">Hello Shi!</ThemedText>
+        <ThemedText type="title">Hello World!</ThemedText>
       </ThemedView>
       <ThemedView className="gap-2 mb-2">
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>

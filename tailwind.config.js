@@ -1,4 +1,4 @@
-import { ColorsToConfig, ColorsToPlugin } from './constants/colors';
+const { ColorsToConfig, ColorsToPlugin } = require('./constants/colors');
 
 const { hairlineWidth } = require('nativewind/theme');
 const { fontFamily } = require('tailwindcss/defaultTheme');

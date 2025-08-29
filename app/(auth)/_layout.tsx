@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 
-import { useAppColor } from '@/constants/colors';
+import useAppColor from '@/hooks/useAppColor';
 
 export default function AuthLayout() {
   const backgroundColor = useAppColor('brand');

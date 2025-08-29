@@ -1,8 +1,4 @@
-import convert from 'color-convert';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-type Colors = {
+export type Colors = {
   // Tailwind colors
   background: string;
   foreground: string;
@@ -38,17 +34,6 @@ function mapColors(colors: Colors) {
       ['--' + key]: value.replace(/hsl\(|\)/g, ''),
     }))
   );
-}
-
-function toRGB(color: string) {
-  const hslValues = color
-    .replace(/hsl\(|\)|\%/g, '')
-    .split(' ')
-    .map((x) => parseFloat(x));
-
-  const rgb = convert.hsl.rgb(hslValues[0], hslValues[1], hslValues[2]);
-
-  return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
 
 const BrandColors = {
@@ -110,26 +95,19 @@ const AppColors: { light: Colors; dark: Colors } = {
   },
 };
 
-export function useAppColor(color: keyof Colors | keyof typeof BrandColors) {
-  const { colorScheme: theme } = useColorScheme();
-
-  if (color in BrandColors) {
-    return toRGB(BrandColors[color as keyof typeof BrandColors]);
-  }
-
-  if (color in AppColors[theme]) {
-    return toRGB(AppColors[theme][color as keyof Colors]);
-  }
-
-  return AppColors.light.primary;
-}
-
-export const ColorsToConfig = Object.assign(
+const ColorsToConfig = Object.assign(
   {},
   ...Object.entries(AppColors.light).map(([key]) => ({ [key]: `hsl(var(--${key}))` }))
 );
 
-export const ColorsToPlugin = {
+const ColorsToPlugin = {
   ':root': mapColors(AppColors.light),
   '.dark:root': mapColors(AppColors.dark),
+};
+
+module.exports = {
+  ColorsToConfig,
+  ColorsToPlugin,
+  AppColors,
+  BrandColors,
 };

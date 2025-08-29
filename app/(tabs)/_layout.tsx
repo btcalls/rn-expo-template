@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
-import { useAppColor } from '@/constants/colors';
+import useAppColor from '@/hooks/useAppColor';
 
 const TAB_ICON_SIZE = 28;
 
